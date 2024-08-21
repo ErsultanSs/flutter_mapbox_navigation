@@ -105,7 +105,7 @@ public class FlutterMapboxNavigationView : NavigationFactory, FlutterPlatformVie
     }
 
     
-   private func setupMapView() {
+private func setupMapView() {
     navigationMapView = NavigationMapView(frame: frame)
     navigationMapView.delegate = self
 
@@ -114,6 +114,12 @@ public class FlutterMapboxNavigationView : NavigationFactory, FlutterPlatformVie
 
         if let mapStyleUrlDay = _mapStyleUrlDay {
             navigationMapView.mapView.mapboxMap.style.uri = StyleURI(url: URL(string: mapStyleUrlDay)!)
+        }
+
+        // Apply the parsed padding
+        if let padding = _padding {
+            navigationMapView.mapView.ornaments.options.compass.margins = CGPoint(x: padding.left, y: padding.top)
+            navigationMapView.mapView.ornaments.options.scaleBar.margins = CGPoint(x: padding.left, y: padding.bottom)
         }
 
         var currentLocation: CLLocation!
@@ -143,11 +149,12 @@ public class FlutterMapboxNavigationView : NavigationFactory, FlutterPlatformVie
         navigationMapView.addGestureRecognizer(onTapGesture)
     }
 
-    // Apply padding to the map
-    let padding: CGFloat = 20.0 // Change this value to whatever padding you prefer
-    navigationMapView.translatesAutoresizingMaskIntoConstraints = false
-    constraintsWithPaddingBetween(holderView: self.navigationMapView, topView: navigationMapView, padding: padding)
+    // Apply padding to the map view using constraints
+    if let padding = _padding {
+        constraintsWithPaddingBetween(holderView: self.navigationMapView, topView: navigationMapView, padding: padding.top)
+    }
 }
+
 
 
     func clearRoute(arguments: NSDictionary?, result: @escaping FlutterResult)
