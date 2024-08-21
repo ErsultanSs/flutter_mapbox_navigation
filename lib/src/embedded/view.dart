@@ -77,7 +77,7 @@ class MapBoxNavigationView extends StatelessWidget {
   child: UiKitView(
     viewType: 'FlutterMapboxNavigationView',
     onPlatformViewCreated: _onPlatformViewCreated,
-    creationParams: options!.toMap(),
+    creationParams: options,
     creationParamsCodec: _decoder,
   ),
 )
