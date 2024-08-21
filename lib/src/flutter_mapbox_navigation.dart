@@ -15,7 +15,7 @@ class MapBoxNavigation {
   static MapBoxNavigation get instance => _instance;
 
   MapBoxOptions _defaultOptions = MapBoxOptions(
-    zoom: 15,
+    zoom: 20,
     tilt: 0,
     bearing: 0,
     enableRefresh: false,
@@ -29,6 +29,7 @@ class MapBoxNavigation {
     animateBuildRoute: true,
     longPressDestinationEnabled: true,
     language: 'en',
+    padding: EdgeInsets.all(20)
   );
 
   /// setter to set default options
